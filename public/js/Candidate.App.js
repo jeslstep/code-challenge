@@ -106,6 +106,14 @@ app.component("itmResults", {
     controller: class {},
     template: `
         <h2>Live Results</h2>
+        <h3>Percentage of Vote Per Candidate</h3>
+        <ul>
+            <li ng-repeat="candidate in $ctrl.candidates">
+                <span ng-bind="candidate.name"></span>
+                <strong ng-bind="candidate.votes"></strong>
+            </li>
+        </ul>
+        <h3>Votes Per Candidate</h3>
         <ul>
             <li ng-repeat="candidate in $ctrl.candidates">
                 <span ng-bind="candidate.name"></span>
