@@ -39,6 +39,21 @@ app.component("itmRoot", {
 
         onAddCandidate(candidate) {
             console.log(`Added candidate ${candidate.name}`);
+            let nameToCheck = candidate.name;
+            const checkNameExistence = this.candidates.some( candidate => candidate.name == nameToCheck );
+            console.log('does the name exist in candidates', checkNameExistence)
+            if ( nameToCheck !== '' && nameToCheck !== undefined && checkNameExistence !== true) {
+                 this.candidates.push({
+                     name: candidate.name,
+                     votes: 0,
+                     percentageOfVote: 0
+                 });
+            } else if ( checkNameExistence ) {
+                  alert('Name exists. Please try a different name.')
+                  
+            } else {
+                alert('Please enter a name.')
+            }
         }
 
         onRemoveCandidate(candidate) {
@@ -132,18 +147,11 @@ app.component("itmResults", {
     controller: class {},
     template: `
         <h2>Live Results</h2>
-        <h3>Percentage of Vote Per Candidate</h3>
-        <ul reversed>
-            <li ng-repeat="candidate in $ctrl.candidates| orderBy:'percentageOfVote':true">
-                <span ng-bind="candidate.name"></span>
-                <strong ng-bind="candidate.percentageOfVote"></strong>
-            </li>
-        </ul>
-        <h3>Votes Per Candidate</h3>
         <ul>
-            <li ng-repeat="candidate in $ctrl.candidates">
+            <li ng-repeat="candidate in $ctrl.candidates| orderBy:'votes':true">
                 <span ng-bind="candidate.name"></span>
                 <strong ng-bind="candidate.votes"></strong>
+                <strong ng-bind="candidate.percentageOfVote"></strong>
             </li>
         </ul>
     `
