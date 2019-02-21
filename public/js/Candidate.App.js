@@ -5,16 +5,16 @@ app.component("itmRoot", {
         constructor() {
             this.candidates = [{ 
                 name: "Puppies",
-                votes: 10,
-                percentageOfVote: 0.34
+                votes: 11,
+                percentageOfVote: "36.7%"
             }, {
                 name: "Kittens",
                 votes: 12,
-                percentageOfVote: 0.41
+                percentageOfVote: "40.0%"
             }, {
                 name: "Gerbils",
                 votes: 7,
-                percentageOfVote: 0.24
+                percentageOfVote: "23.3%"
             }];
         }
 
@@ -25,15 +25,16 @@ app.component("itmRoot", {
         }
 
         findPercentageOfVote() {
-              const votesPerCandidate = this.candidates.map(candidate => candidate.votes);
-              console.log('votes per candidate', votesPerCandidate);
-              let totalVotes = 0;
-                for (let i = 0; i < votesPerCandidate.length; i++) {
-                    totalVotes += votesPerCandidate[i];
-                }
-                console.log('total votes', totalVotes);
-                let calcuPercentageOfVote = this.candidates.map(candidate => candidate.percentageOfVote= candidate.votes / totalVotes );
-                console.log('percentage of votes per candidate', calcuPercentageOfVote);
+            const votesPerCandidate = this.candidates.map(candidate => candidate.votes);
+            console.log('votes per candidate', votesPerCandidate);
+            let totalVotes = 0;
+            for (let i = 0; i < votesPerCandidate.length; i++) {
+                totalVotes += votesPerCandidate[i];
+            }
+            console.log('total votes', totalVotes);
+            let calcuPercentageOfVote = this.candidates.map(candidate => 
+                candidate.percentageOfVote= ((candidate.votes / totalVotes) * 100).toFixed(1) + '%' );
+            console.log('percentage of votes per candidate', calcuPercentageOfVote);
           }
 
         onAddCandidate(candidate) {
@@ -104,7 +105,6 @@ app.component("itmManagement", {
                 <button type="button" ng-click="$ctrl.removeCandidate(candidate)">X</button>
             </li>
         </ul>
-
     `
 });
 
@@ -129,9 +129,6 @@ app.component("itmResults", {
     bindings: {
         candidates: "<"
     },
-
-  
-
     controller: class {},
     template: `
         <h2>Live Results</h2>
