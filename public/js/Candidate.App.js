@@ -149,12 +149,14 @@ app.component("itmResults", {
     controller: class {},
     template: `
         <h2>Live Results</h2>
-        <ul>
-            <li ng-repeat="candidate in $ctrl.candidates| orderBy:'votes':true">
-                <span ng-bind="candidate.name"></span>
-                <strong ng-bind="candidate.votes"></strong>
-                <strong ng-bind="candidate.percentageOfVote"></strong>
-            </li>
-        </ul>
+        <main>
+            <ul class="card list-group" style="width: 18rem; margin: 1rem; display: inline-block;" ng-repeat="candidate in $ctrl.candidates| orderBy:'votes':true">
+                <section class="card-body">
+                    <h3 class="card-title" ng-bind="candidate.name"></h3>
+                    <li class="list-group-item"><strong ng-bind="candidate.votes"></strong></li>
+                    <li class="list-group-item"><strong ng-bind="candidate.percentageOfVote"></strong></li>
+                </section>
+            </ul>
+        </main>
     `
 });
