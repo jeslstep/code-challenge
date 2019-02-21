@@ -39,6 +39,17 @@ app.component("itmRoot", {
 
         onAddCandidate(candidate) {
             console.log(`Added candidate ${candidate.name}`);
+            const checkNameExistence = this.candidates.some( candidate => candidate === candidate.name );
+            if ( candidate.name !== '' && checkNameExistence === false){
+                 this.candidates.push({
+                     name: candidate.name,
+                     votes: 0,
+                     percentageOfVote: 0
+                 });
+            } else if (candidate.name === '') {
+                alert('Please enter a name.')
+            } else {
+            alert('Name exists. Please try a different name.') }
         }
 
         onRemoveCandidate(candidate) {
