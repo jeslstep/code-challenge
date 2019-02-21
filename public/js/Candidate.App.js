@@ -148,7 +148,7 @@ app.component("itmVote", {
 
         <button type="button"
         class="btn btn-dark"
-        style="width: 18rem; margin: 2rem; margin-bottom: 3.5rem; display: inline-block;"
+        style="width: 18rem; margin: 1rem; margin-bottom: 3.5rem; display: inline-block;"
             ng-repeat="candidate in $ctrl.candidates"
             ng-click="$ctrl.onVote({ $candidate: candidate })">
             <span ng-bind="candidate.name"></span>
