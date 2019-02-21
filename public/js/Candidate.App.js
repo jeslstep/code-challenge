@@ -3,12 +3,38 @@ const app = angular.module("Candidate.App", []);
 app.component("itmRoot", {
     controller: class {
         constructor() {
-            this.candidates = [{ name: "Puppies", votes: 10 }, { name: "Kittens", votes: 12 }, { name: "Gerbils", votes: 7 }];
+            this.candidates = [{ 
+                name: "Puppies",
+                votes: 10,
+                percentageOfVote: 0.34
+            }, {
+                name: "Kittens",
+                votes: 12,
+                percentageOfVote: 0.41
+            }, {
+                name: "Gerbils",
+                votes: 7,
+                percentageOfVote: 0.24
+            }];
         }
 
         onVote(candidate) {
             console.log(`Vote for ${candidate.name}`);
+            this.candidate= candidate.votes++;
+            this.findPercentageOfVote();
         }
+
+        findPercentageOfVote() {
+              const votesPerCandidate = this.candidates.map(candidate => candidate.votes);
+              console.log('votes per candidate', votesPerCandidate);
+              let totalVotes = 0;
+                for (let i = 0; i < votesPerCandidate.length; i++) {
+                    totalVotes += votesPerCandidate[i];
+                }
+                console.log('total votes', totalVotes);
+                let calcuPercentageOfVote = this.candidates.map(candidate => candidate.percentageOfVote= candidate.votes / totalVotes );
+                console.log('percentage of votes per candidate', calcuPercentageOfVote);
+          }
 
         onAddCandidate(candidate) {
             console.log(`Added candidate ${candidate.name}`);
@@ -103,9 +129,20 @@ app.component("itmResults", {
     bindings: {
         candidates: "<"
     },
+
+  
+
     controller: class {},
     template: `
         <h2>Live Results</h2>
+        <h3>Percentage of Vote Per Candidate</h3>
+        <ul>
+            <li ng-repeat="candidate in $ctrl.candidates">
+                <span ng-bind="candidate.name"></span>
+                <strong ng-bind="candidate.percentageOfVote"></strong>
+            </li>
+        </ul>
+        <h3>Votes Per Candidate</h3>
         <ul>
             <li ng-repeat="candidate in $ctrl.candidates">
                 <span ng-bind="candidate.name"></span>
