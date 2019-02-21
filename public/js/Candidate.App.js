@@ -136,8 +136,8 @@ app.component("itmResults", {
     template: `
         <h2>Live Results</h2>
         <h3>Percentage of Vote Per Candidate</h3>
-        <ul>
-            <li ng-repeat="candidate in $ctrl.candidates">
+        <ul reversed>
+            <li ng-repeat="candidate in $ctrl.candidates| orderBy:'percentageOfVote':true">
                 <span ng-bind="candidate.name"></span>
                 <strong ng-bind="candidate.percentageOfVote"></strong>
             </li>
