@@ -63,7 +63,7 @@ app.component("itmRoot", {
         }
     },
     template: `
-        <h1 class="display-4">Which candidate brings the most joy?</h1>
+        <h1 class="display-4 header">Which candidate brings the most joy?</h1>
              
         <itm-results 
             candidates="$ctrl.candidates">
@@ -117,7 +117,7 @@ app.component("itmManagement", {
                         <br/>
                         <input type="text" ng-model="$ctrl.newCandidate.name" required>
                         <br/>
-                        <button type="submit" class="btn btn-dark" style="width: 18rem; margin: 1rem; display: inline-block;">Add</button>
+                        <button type="submit" class="btn btn-dark" style="width: 18rem; margin: 1rem; margin-top: 2rem; display: inline-block;">Add</button>
                     </form>
                 </section>
 
@@ -126,7 +126,8 @@ app.component("itmManagement", {
                     <section class="card" style="width: 9rem; margin: 1rem; display: inline-block;" ng-repeat="candidate in $ctrl.candidates">
                         <section class="card-body">
                             <span ng-bind="candidate.name"></span>
-                            <button type="button" class="btn btn-outline-danger" style="width: 3rem; margin: 1rem; display: inline-block;" ng-click="$ctrl.removeCandidate(candidate)">X</button>
+                            <button type="button" class="btn btn-outline-danger" style="width: 3rem; margin: 1rem; 
+                            display: inline-block;" ng-click="$ctrl.removeCandidate(candidate)">X</button>
                         </section>
                     </section>
                 </section>
@@ -142,15 +143,17 @@ app.component("itmVote", {
     },
     controller: class {},
     template: `
-        <h2 class="display-5">Cast your vote!</h2>
+    <section>
+        <h2 class="display-5" style="margin-top: 3.5rem;">Cast your vote!</h2>
 
         <button type="button"
         class="btn btn-dark"
-        style="width: 18rem; margin: 1rem; display: inline-block;"
+        style="width: 18rem; margin: 2rem; margin-bottom: 3.5rem; display: inline-block;"
             ng-repeat="candidate in $ctrl.candidates"
             ng-click="$ctrl.onVote({ $candidate: candidate })">
             <span ng-bind="candidate.name"></span>
         </button>
+    </section>
     `
 });
 
