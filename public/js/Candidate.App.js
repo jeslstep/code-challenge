@@ -3,11 +3,24 @@ const app = angular.module("Candidate.App", []);
 app.component("itmRoot", {
     controller: class {
         constructor() {
-            this.candidates = [{ name: "Puppies", votes: 10, percentageOfVote: 0 }, { name: "Kittens", votes: 12, percentageOfVote: 0 }, { name: "Gerbils", votes: 7, percentageOfVote: 0 }];
+            this.candidates = [{ 
+                name: "Puppies",
+                votes: 10,
+                percentageOfVote: 0.34
+            }, {
+                name: "Kittens",
+                votes: 12,
+                percentageOfVote: 0.41
+            }, {
+                name: "Gerbils",
+                votes: 7,
+                percentageOfVote: 0.24
+            }];
         }
 
         onVote(candidate) {
             console.log(`Vote for ${candidate.name}`);
+            this.candidate= candidate.votes++;
             this.findPercentageOfVote();
         }
 
