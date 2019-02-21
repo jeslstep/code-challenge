@@ -58,6 +58,8 @@ app.component("itmRoot", {
 
         onRemoveCandidate(candidate) {
             console.log(`Removed candidate ${candidate.name}`);
+            let candidateToRemove= this.candidates.indexOf( candidate );
+            this.candidates.splice(candidateToRemove, 1);
         }
     },
     template: `
