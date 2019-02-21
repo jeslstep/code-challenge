@@ -42,7 +42,7 @@ app.component("itmRoot", {
             let nameToCheck = candidate.name;
             const checkNameExistence = this.candidates.some( candidate => candidate.name == nameToCheck );
             console.log (checkNameExistence)
-            if ( candidate.name !== '' && checkNameExistence !== true){
+            if ( nameToCheck !== '' && checkNameExistence !== true) {
                  this.candidates.push({
                      name: candidate.name,
                      votes: 0,
