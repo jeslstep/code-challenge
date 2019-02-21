@@ -63,7 +63,7 @@ app.component("itmRoot", {
         }
     },
     template: `
-        <h1>Which candidate brings the most joy?</h1>
+        <h1 class="display-4">Which candidate brings the most joy?</h1>
              
         <itm-results 
             candidates="$ctrl.candidates">
@@ -104,24 +104,34 @@ app.component("itmManagement", {
         }
     },
     template: `
-        <h2>Manage Candidates</h2>
+        <section class="jumbotron">
+            <section class="row">
+                <h2 class="col" class="display-5">Manage Candidates</h2>
+            </section>
+            <section class="row">
+                <section class="col">
+                    <h3 class="display-6">Add New Candidate</h3>
+                    <form ng-submit="$ctrl.submitCandidate($ctrl.newCandidate)" novalidate>
 
-        <h3>Add New Candidate</h3>
-        <form ng-submit="$ctrl.submitCandidate($ctrl.newCandidate)" novalidate>
+                        <label>Candidate Name</label>
+                        <br/>
+                        <input type="text" ng-model="$ctrl.newCandidate.name" required>
+                        <br/>
+                        <button type="submit" class="btn btn-dark" style="width: 18rem; margin: 1rem; display: inline-block;">Add</button>
+                    </form>
+                </section>
 
-            <label>Candidate Name</label>
-            <input type="text" ng-model="$ctrl.newCandidate.name" required>
-
-            <button type="submit">Add</button>
-        </form>
-
-        <h3>Remove Candidate</h3>
-        <ul>
-            <li ng-repeat="candidate in $ctrl.candidates">
-                <span ng-bind="candidate.name"></span>
-                <button type="button" ng-click="$ctrl.removeCandidate(candidate)">X</button>
-            </li>
-        </ul>
+                <section class="col">
+                    <h3 class="display-6">Remove Candidate</h3>
+                    <section class="card" style="width: 9rem; margin: 1rem; display: inline-block;" ng-repeat="candidate in $ctrl.candidates">
+                        <section class="card-body">
+                            <span ng-bind="candidate.name"></span>
+                            <button type="button" class="btn btn-outline-danger" style="width: 3rem; margin: 1rem; display: inline-block;" ng-click="$ctrl.removeCandidate(candidate)">X</button>
+                        </section>
+                    </section>
+                </section>
+            </section>
+        </section>
     `
 });
 
@@ -132,9 +142,11 @@ app.component("itmVote", {
     },
     controller: class {},
     template: `
-        <h2>Cast your vote!</h2>
+        <h2 class="display-5">Cast your vote!</h2>
 
         <button type="button"
+        class="btn btn-dark"
+        style="width: 18rem; margin: 1rem; display: inline-block;"
             ng-repeat="candidate in $ctrl.candidates"
             ng-click="$ctrl.onVote({ $candidate: candidate })">
             <span ng-bind="candidate.name"></span>
@@ -148,15 +160,17 @@ app.component("itmResults", {
     },
     controller: class {},
     template: `
-        <h2>Live Results</h2>
-        <main>
-            <ul class="card list-group" style="width: 18rem; margin: 1rem; display: inline-block;" ng-repeat="candidate in $ctrl.candidates| orderBy:'votes':true">
+        <main class="jumbotron" >
+            <h2 class="display-5">Live Results</h2>
                 <section class="card-body">
-                    <h3 class="card-title" ng-bind="candidate.name"></h3>
-                    <li class="list-group-item"><strong ng-bind="candidate.votes"></strong></li>
-                    <li class="list-group-item"><strong ng-bind="candidate.percentageOfVote"></strong></li>
+                    <ul class="card list-group" style="width: 18rem; margin: 1rem; padding: 1rem; display: inline-block;" ng-repeat="candidate in $ctrl.candidates| orderBy:'votes':true">
+                    
+                            <h3 class="card-title" ng-bind="candidate.name"></h3>
+                            <li class="list-group-item"><strong ng-bind="candidate.votes"></strong></li>
+                            <li class="list-group-item"><strong ng-bind="candidate.percentageOfVote"></strong></li>
+                    
+                    </ul>
                 </section>
-            </ul>
         </main>
     `
 });
