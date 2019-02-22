@@ -20,19 +20,27 @@ app.component("itmRoot", {
 
         onVote(candidate) {
             console.log(`Vote for ${candidate.name}`);
+            // increases the vote count for the clicked candidate
             this.candidate= candidate.votes++;
+            // calculate the percentage of the vote
             this.findPercentageOfVote();
         }
 
         findPercentageOfVote() {
+            // creates an array with the votes per candidate
             const votesPerCandidate = this.candidates.map(candidate => candidate.votes);
             console.log('votes per candidate', votesPerCandidate);
+            // stores total number of votes, which will be used to calculate each candiates
+            // percentage of the vote
             let totalVotes = 0;
+            // loops through votesPerCandiate array adding up all the votes
             for (let i = 0; i < votesPerCandidate.length; i++) {
                 totalVotes += votesPerCandidate[i];
             }
             console.log('total votes', totalVotes);
+            // loops through candidates to calculate the percentage of vote each candidate has
             let calcuPercentageOfVote = this.candidates.map(candidate => 
+                // sets the percentageOfVote property to each canditate's to the calculated percentage
                 candidate.percentageOfVote= ((candidate.votes / totalVotes) * 100).toFixed(1) + '%' );
             console.log('percentage of votes per candidate', calcuPercentageOfVote);
           }
@@ -40,8 +48,11 @@ app.component("itmRoot", {
         onAddCandidate(candidate) {
             console.log(`Added candidate ${candidate.name}`);
             let nameToCheck = candidate.name;
+            // check to see if a candidate with the same name exits
             const checkNameExistence = this.candidates.some( candidate => candidate.name == nameToCheck );
             console.log('does the name exist in candidates', checkNameExistence)
+            // do not allow a new candidate to be added if the user's input is empty, undefined, or 
+            // the candidate's name already exits 
             if ( nameToCheck !== '' && nameToCheck !== undefined && checkNameExistence !== true) {
                  this.candidates.push({
                      name: candidate.name,
@@ -58,7 +69,9 @@ app.component("itmRoot", {
 
         onRemoveCandidate(candidate) {
             console.log(`Removed candidate ${candidate.name}`);
+            // finds the index of the candidate clicked
             let candidateToRemove= this.candidates.indexOf( candidate );
+            // removes the candidate 
             this.candidates.splice(candidateToRemove, 1);
         }
     },
@@ -112,7 +125,6 @@ app.component("itmManagement", {
                 <section class="col">
                     <h3 class="display-6">Add New Candidate</h3>
                     <form ng-submit="$ctrl.submitCandidate($ctrl.newCandidate)" novalidate>
-
                         <label>Candidate Name</label>
                         <br/>
                         <input type="text" ng-model="$ctrl.newCandidate.name" required>
@@ -146,9 +158,10 @@ app.component("itmVote", {
     <section>
         <h2 class="display-5" style="margin-top: 3.5rem;">Cast your vote!</h2>
 
-        <button type="button"
-        class="btn btn-dark"
-        style="width: 18rem; margin: 1rem; margin-bottom: 3.5rem; display: inline-block;"
+        <button 
+            type="button"
+            class="btn btn-dark"
+            style="width: 18rem; margin: 1rem; margin-bottom: 3.5rem; display: inline-block;"
             ng-repeat="candidate in $ctrl.candidates"
             ng-click="$ctrl.onVote({ $candidate: candidate })">
             <span ng-bind="candidate.name"></span>
@@ -166,12 +179,13 @@ app.component("itmResults", {
         <main class="jumbotron" >
             <h2 class="display-5">Live Results</h2>
                 <section class="card-body">
-                    <ul class="card list-group" style="width: 18rem; margin: 1rem; padding: 1rem; display: inline-block;" ng-repeat="candidate in $ctrl.candidates| orderBy:'votes':true">
-                    
-                            <h3 class="card-title" ng-bind="candidate.name"></h3>
+                    <ul 
+                        class="card list-group" 
+                        style="width: 18rem; margin: 1rem; padding: 1rem; display: inline-block;" 
+                        ng-repeat="candidate in $ctrl.candidates| orderBy:'votes':true">
+                            <h2 class="card-title" ng-bind="candidate.name"></h2>
                             <li class="list-group-item"><strong ng-bind="candidate.votes"></strong></li>
                             <li class="list-group-item"><strong ng-bind="candidate.percentageOfVote"></strong></li>
-                    
                     </ul>
                 </section>
         </main>
